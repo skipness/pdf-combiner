@@ -23,7 +23,7 @@ window.onload = () => {
     const pdfLib = await PDFLib.PDFDocument.create();
     for (const file of pdfInput.files) {
       const pdfBytes = await file.arrayBuffer();
-      const pdf = await PDFLib.PDFDocument.load(pdfBytes);
+      const pdf = await PDFLib.PDFDocument.load(pdfBytes, { ignoreEncryption: true });
       for (let i = 0; i < pdf.getPageCount(); i++) {
         const [page] = await pdfLib.copyPages(pdf, [i]);
         pdfLib.addPage(page);
@@ -33,3 +33,4 @@ window.onload = () => {
     saveAs(pdfDataUri, "result", { type: "application/pdf" });
   }
 };
+
